@@ -1,0 +1,195 @@
+{
+        "layer": "top",
+        "position": "top",
+        "reload_style_on_change": true,
+        "modules-left": ["custom/notification","custom/myapp","custom/pacman","tray","clock","custom/timer"],
+        "modules-center": ["hyprland/workspaces"],
+        "modules-right": ["custom/spotify","custom/primary-systems","group/expand","bluetooth","network","battery","pulseaudio"],
+
+
+        "hyprland/workspaces": {
+            "format": "{icon}",
+            "format-icons": {
+                "active": "",
+                "default": "",
+                "empty": ""
+            },
+            "persistent-workspaces": {
+                "*": [ 1,2,3,4,5 ]
+            }
+        },
+        "custom/notification": {
+            "tooltip": false,
+            "format": "",
+            "on-click": "swaync-client -t -sw",
+            "escape": true
+        },
+        "clock": {
+            "format": "{:%I:%M:%S %p} ",
+            "interval": 1,   
+            "tooltip-format": "<tt>{calendar}</tt>",
+            "calendar": {
+                "format": {
+                    "today": "<span color='#fAfBfC'><b>{}</b></span>"
+                }
+            },
+            "actions": {
+                "on-click-right": "shift_down",
+                "on-click": "shift_up"
+            }
+        },
+        "network": {
+            "format-wifi": "WIFI",
+            "format-ethernet":"",
+            "format-disconnected": "",
+            "tooltip-format-disconnected": "Error",
+            "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+            "tooltip-format-ethernet": "{ifname} 🖧 ",
+            "on-click": "kitty nmtui"
+        },
+        "bluetooth": {
+            "format-on": "󰂯",
+            "format-off": "BT-off",
+            "format-disabled": "󰂲",
+            "format-connected-battery": "{device_battery_percentage}% 󰂯",
+            "format-alt": "{device_alias} 󰂯",
+            "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+            "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
+            "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
+            "on-click-right": "blueman-manager",
+        }, 
+        "battery": {
+            "interval":30,
+            "states": {
+                "good": 95,
+                "warning": 30,
+                "critical": 20
+            },
+            "format": "{capacity}% {icon}",
+            "format-charging": "{capacity}% 󰂄",
+            "format-plugged": "{capacity}% 󰂄 ",
+            "format-alt": "{time} {icon}",
+            "format-icons": [
+                "󰁻",
+            "󰁼",
+            "󰁾",
+            "󰂀",
+            "󰂂",
+            "󰁹"
+            ],
+        },
+        "custom/pacman": {
+            "format": "󰅢 \u00a0{}",
+            "interval": 30,   
+            "exec": "checkupdates | wc -l",
+            "exec-if": "exit 0",
+            "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+            "signal": 8,
+            "tooltip": false,
+        },
+        "custom/expand": {
+            "format": "",
+            "tooltip": false
+        },
+        "custom/endpoint":{
+            "format": "|",
+            "tooltip": false
+        },
+        "group/expand": {
+            "orientation": "horizontal",
+            "drawer": {
+                "transition-duration": 600,
+                "transition-to-left": true,
+                "click-to-reveal": true
+            },
+            "modules": ["custom/expand", "custom/colorpicker","cpu","memory","temperature","custom/endpoint"],
+        },
+        "custom/colorpicker": {
+            "format": "{}",
+            "return-type": "json",
+            "interval": "once",
+            "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+            "on-click": "~/.config/waybar/scripts/colorpicker.sh",
+            "signal": 1
+        },
+        "cpu": {
+            "format": "󰻠",
+            "tooltip": true
+        },
+        "memory": {
+            "format": ""
+        },
+        "temperature": {
+            "critical-threshold": 80,
+            "format": "",
+        },
+        "tray": {
+            "icon-size": 14,
+            "spacing": 10
+        },
+        
+
+"pulseaudio": {
+  "format": "{icon} \u00a0\u00a0\u00a0 {volume}%",
+  "format-muted": " SILENCED",
+  "format-icons": [
+    "",  // 0–33%   (low)
+    "",  // 34–66%  (medium)
+    ""   // 67–100% (high)
+  ],
+  "format-bluetooth": " {volume}%",
+  "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+  "on-click-right": "pavucontrol",  // ← This line opens pavucontrol on right-click
+  "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+  "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+  "interval": 2,
+  "max-volume": 150,
+  "tooltip": false
+}
+,
+  
+"custom/timer": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/timer.sh",
+    "interval": 1,
+    "return-type": "json",
+    "tooltip": true,
+    "on-click": "~/.config/waybar/scripts/timer_menu.sh"
+},
+
+"custom/myapp": {
+    "format": "",                     // Use a Font Awesome icon or emoji here
+    "tooltip": "Launch My App",
+    "on-click": "~/scripts/start_workspace_tools.sh",
+
+},
+
+"custom/primary-systems": {
+    "exec": "~/.config/waybar/scripts/scrolling_text.sh",
+    "interval": 0,
+    "return-type": "text",
+    "format": "{}",
+    "tooltip": false,
+    "class": "primary-systems"
+},
+
+
+"custom/spotify": {
+  "exec": "~/.config/waybar/scripts/spotify_status.sh",
+  "interval": 2,
+  "return-type": "json",
+  "format": "{}",
+  "on-click": "playerctl play-pause",
+  "tooltip": true
+}
+
+
+
+
+
+
+} 
+
+
+

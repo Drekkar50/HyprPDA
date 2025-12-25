@@ -1,0 +1,335 @@
+@import url('/home/kavish/.config/waybar/colors-waybar.css');
+
+* {
+    font-size: 15px;
+    font-family: "CodeNewRoman Nerd Font Propo";
+}
+
+window {
+    background-color: rgba(30, 30, 30, 0.3);  /* translucent dark */
+    border: none;
+}
+
+window#waybar {
+    all: unset;
+}
+
+.modules-left {
+    padding: 0px;
+    margin: 10 5 0 10;
+    border-radius: 10px;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.modules-center {
+    padding: 7px;
+    margin: 10 0 0 10;
+    border-radius: 10px;
+    background: alpha(@background, .6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+    border: 2px solid @color4;
+}
+
+.modules-right {
+    padding: 0px;
+    margin: 10 5 0 10;
+    border-radius: 10px;
+    background: transparent;  /* removed bg for standalone buttons */
+    box-shadow: none;
+    border: none;
+}
+
+/* new rules to add spacing between modules-right children */
+.modules-right > * {
+    margin-left: 12px;
+}
+
+.modules-right > *:first-child {
+    margin-left: 0;
+}
+
+tooltip {
+    background: @background;
+    color: @color7;
+}
+
+#clock:hover, #custom-pacman:hover, #custom-notification:hover, #bluetooth:hover, #network:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover, #modules-left:hover,
+#pulseaudio:hover {
+    transition: all 0.6s ease;
+    color: #6340ff;
+    border-color: #6340ff;
+}
+
+#custom-notification {
+    padding: 0px 5px;
+    transition: all .3s ease;
+    color: @color4;
+}
+
+#clock, #custom-pacman, #tray, #custom-notification, #custom-myapp  {
+    font-weight: bold;
+    padding: 5px 16px; /* more left/right padding */
+    margin: 0 6px; /* space between buttons */
+    border-radius: 12px;
+    background: alpha(@background, .6);
+    border: 2px solid @color4;
+    box-shadow: none;
+    color: @color4;
+    transition: background 0.3s ease;
+}
+
+#workspaces {
+    padding: 0px 5px;
+}
+
+#workspaces button {
+    all: unset;
+    padding: 0px 5px;
+    color: alpha(@color9, .4);
+    transition: all .2s ease;
+}
+
+#workspaces button:hover {
+    color: rgba(0, 0, 0, 0);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+    transition: all 1s ease;
+}
+
+#workspaces button.active {
+    color: @color9;
+    border: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+}
+
+#workspaces button.empty {
+    color: rgba(0, 0, 0, 0);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
+}
+
+#workspaces button.empty:hover {
+    color: rgba(0, 0, 0, 0);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+    transition: all 1s ease;
+}
+
+#workspaces button.empty.active {
+    color: @color9;
+    border: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+}
+
+#bluetooth,
+#network,
+#battery,
+#pulseaudio,
+#custom-expand {
+
+    padding: 5px 16px; /* more left/right padding */
+    margin: 0 6px; /* space between buttons */
+    border-radius: 12px;
+    background: alpha(@background, .6);
+    border: 2px solid @color4;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .6);
+    color: @color4;
+    transition: background 0.3s ease;
+}
+
+#pulseaudio {
+    color: #4EB987;
+}
+
+#pulseaudio.muted {
+    color: #ff6666;
+}
+
+#bluetooth:hover,
+#network:hover,
+#pulseaudio:hover {
+    background: alpha(@background, .8);
+}
+
+
+#battery.charging {
+    color: #26A65B;
+}
+
+#battery.warning:not(.charging) {
+    color: #ffbe61;
+}
+
+#battery.critical:not(.charging) {
+    color: #f53c3c;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#group-expand {
+    padding: 0px 5px;
+    transition: all .3s ease;
+}
+
+#custom-expand {
+    padding: 0px 5px;
+    color: alpha(@color4, 1.0);
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
+    transition: all .3s ease;
+}
+
+#custom-expand:hover {
+    color: rgba(255, 255, 255, .2);
+    text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
+}
+
+#custom-colorpicker {
+    padding: 0px 5px;
+}
+
+#cpu,
+#memory,
+#temperature {
+    padding: 0px 5px;
+    transition: all .3s ease;
+    color: @color7;
+}
+
+#custom-endpoint {
+    color: transparent;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
+}
+
+#tray {
+    padding: 0px 5px;
+    transition: all .3s ease;
+}
+
+#tray menu * {
+    padding: 0px 5px;
+    transition: all .3s ease;
+}
+
+#tray menu separator {
+    padding: 0px 5px;
+    transition: all .3s ease;
+}
+
+#custom-myapp {
+
+  font-family: monospace;
+  font-weight: bold;
+  padding: 5px 16px;
+  margin: 0 6px;
+  border-radius: 12px;
+  background: alpha(@background, 0.6);
+  border: 2px solid @color4;
+  box-shadow: none;
+  min-width: 10px;
+  transition: all 0.3s ease;
+
+
+}
+
+#custom-timer {
+  font-family: monospace;
+  font-weight: bold;
+  padding: 5px 16px;
+  margin: 0 6px;
+  border-radius: 12px;
+  background: alpha(@background, 0.6);
+  border: 2px solid @color4;
+  box-shadow: none;
+  min-width: 10px;
+  transition: all 0.3s ease;
+}
+
+.timer-running {
+  color: @color4;
+}
+
+.timer-done {
+  color: @color9;
+  background-color: rgba(255, 50, 50, 0.1);
+  border-color: #f53c3c;
+  animation: pulse 1s infinite;
+}
+
+.timer-idle {
+  color: alpha(@color7, 0.3);
+}
+
+#custom-primary-systems {
+  font-family: monospace;
+  font-weight: bold;
+  padding: 5px 16px;
+  margin: 0 6px;
+  border-radius: 12px;
+  background: alpha(@background, 0.6);
+  border: 2px solid @color4;
+  box-shadow: none;
+  min-width: 200px;
+  transition: all 0.3s ease;
+}
+
+#custom-spotify {
+    font-family: monospace;
+    font-weight: bold;
+    padding: 5px 12px;
+    margin: 0 6px;
+    border-radius: 12px;
+    background: alpha(@background, .6);
+    border: 2px solid @color4;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .6);
+    color: @color4;
+    transition: all 0.3s ease;
+}
+
+#custom-spotify:hover {
+    font-family: monospace;
+    font-weight: bold;
+    background: alpha(@background, .8);
+    color: #88c0d0;
+}
+
+
+#custom-spotify.spotify-playing {
+  background: alpha(@background, .6);
+  color: @color4;
+  border: 2px solid #2ecc71;
+}
+
+#custom-spotify.spotify-paused {
+  background: alpha(@background, .6);
+  color: @color8;
+  border: 2px solid @color4;
+}
+
+#custom-spotify.spotify-stopped {
+  background-color: rgba(52, 73, 94, 0.6); /* greyish when stopped */
+  color: #bdc3c7;
+  border: 2px solid #34495e;
+}
+
+#custom-primary-systems {
+
+    padding: 5px 8px; /* more left/right padding */
+    margin: 0 6px; /* space between buttons */
+    border-radius: 10px;
+    background: alpha(@color0, 0.6);
+    border: 2px solid @color4;
+    box-shadow: 0 0 2px rgba(0, 0, 0, .6);
+    color: @color4;
+    transition: background 0.3s ease;
+}
+
+
+
+
+
+
